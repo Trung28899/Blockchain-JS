@@ -12,11 +12,14 @@ import crypto from "crypto";
 */
 
 function crypto_hash() {
+  const argumentArr = [];
+
   // arguments is an object that contains all arguments of the function
-  let dataString = "";
   for (let i = 0; i < arguments.length; i++) {
-    dataString += arguments[i].toString();
+    argumentArr.push(arguments[i].toString());
   }
+
+  const dataString = argumentArr.sort().join("");
 
   const hash = crypto.createHash("sha256").update(dataString).digest("hex");
 

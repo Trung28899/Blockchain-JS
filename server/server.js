@@ -10,7 +10,6 @@ import fetchRoute from "./routes/mainRoute.js";
 import dotenv from "dotenv";
 import { Block } from "./models/block.js";
 import { Blockchain } from "./models/blockchain.js";
-import { crypto_hash } from "./util/crypto_hash.js";
 
 dotenv.config();
 
@@ -25,8 +24,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/", fetchRoute);
-
-crypto_hash("one", 2, [3]);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

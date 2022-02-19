@@ -1,4 +1,12 @@
 import { crypto_hash } from "../util/crypto_hash.js";
+
+const GENESIS_DATA = {
+  timestamp: 1,
+  last_hash: "genesis_last_hash",
+  hash: "genesis_hash",
+  data: [],
+};
+
 class Block {
   /*
         Block: a unit of storage
@@ -24,7 +32,12 @@ class Block {
         Generate the genesis block
         Genesis block: the first block in a chain
       */
-    return new Block(1, "genesis_last_hash", "genesis_hash", []);
+    return new Block(
+      GENESIS_DATA.timestamp,
+      GENESIS_DATA.last_hash,
+      GENESIS_DATA.hash,
+      GENESIS_DATA.data
+    );
   }
 }
 
@@ -32,4 +45,4 @@ class Block {
 // const newBlock = Block.mine_block(genesis_block, ["Array"]);
 // console.log(newBlock);
 
-export { Block };
+export { Block, GENESIS_DATA };

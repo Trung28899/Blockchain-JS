@@ -24,6 +24,6 @@ class Blockchain {
 const newBlockChain = new Blockchain();
 newBlockChain.add_block("new block here baby");
 newBlockChain.add_block("another new block here yo");
-console.log(newBlockChain);
+// console.log(newBlockChain);
 
 export { Blockchain };
