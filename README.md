@@ -15,11 +15,11 @@
 
     1. 2nd Commit: Start A Blockchain Application
     2. 3rd Commit: Unit Testing With Jest - Section 4: Test the Application
-    3. 4th Commit:
+    3. 4th Commit: Proof Of Work
 
 ## COMMIT HISTORY
 
-    <h1>1. 2nd Commit: Start A Blockchain Application</h1>
+    1. 2nd Commit: Start A Blockchain Application
 
         - Start A Blockchain Application:
             +, See ./server/models/block.js
@@ -27,6 +27,8 @@
             +, ./util/crypto_hash.js
 
         - Section 1 - Section 3 Udemy course
+
+---
 
     2. 3rd Commit: Unit Testing With Jest - Section 4: Test the Application
 
@@ -54,7 +56,9 @@
                 +, All the files with extension: .test.js will automatically
                     be run for testing
 
-    3. 4th Commit:
+---
+
+    3. 4th Commit: Proof Of Work
 
         - SECTION 5: Proof Of Work
 
@@ -81,3 +85,5 @@
             +, For running scripts:
 
 `$ node scripts/average_block_rate.js`
+
+---
