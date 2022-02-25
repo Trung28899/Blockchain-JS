@@ -28,7 +28,7 @@
 
         - Section 1 - Section 3 Udemy course
 
----
+## ``` `
 
     2. 3rd Commit: Unit Testing With Jest - Section 4: Test the Application
 
@@ -56,7 +56,7 @@
                 +, All the files with extension: .test.js will automatically
                     be run for testing
 
----
+## ``` `
 
     3. 4th Commit: Proof Of Work
 
@@ -86,4 +86,4 @@
 
 `$ node scripts/average_block_rate.js`
 
----
+## ``` `
