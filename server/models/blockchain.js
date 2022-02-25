@@ -1,4 +1,4 @@
-import { Block } from "./block.js";
+import { Block, GENESIS_DATA } from "./block.js";
 
 class Blockchain {
   /*
@@ -21,9 +21,9 @@ class Blockchain {
 // timestamp of the lastest 2 block will be the same because it was
 // executed at the same time. Try setTimeout to see the differences
 
-const newBlockChain = new Blockchain();
-newBlockChain.add_block("new block here baby");
-newBlockChain.add_block("another new block here yo");
+// const newBlockChain = new Blockchain();
+// newBlockChain.add_block("new block here baby");
+// newBlockChain.add_block("another new block here yo");
 // console.log(newBlockChain);
 
 export { Blockchain };
