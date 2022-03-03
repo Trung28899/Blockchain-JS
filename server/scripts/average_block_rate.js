@@ -1,5 +1,6 @@
 import { Blockchain } from "../models/blockchain.js";
 import { SECONDS } from "../config.js";
+import { hex_to_binary } from "../util/hex_to_binary.js";
 
 const BlockChain = new Blockchain();
 
@@ -22,12 +23,20 @@ while (i < 100) {
       BlockChain.chain[BlockChain.chain.length - 1].difficulty
     }`
   );
+  console.log(
+    `New Block Nonce: ${BlockChain.chain[BlockChain.chain.length - 1].nonce}`
+  );
   console.log(`Time To mine: ${parseFloat(time_to_mine).toFixed(2)}s`);
   console.log(
     `Average time to add blocks:  ${parseFloat(average_time).toFixed(2)}s`
   );
   console.log(
     `Hash of new block:  ${BlockChain.chain[BlockChain.chain.length - 1].hash}`
+  );
+  console.log(
+    `\nBinary Hash:  ${hex_to_binary(
+      BlockChain.chain[BlockChain.chain.length - 1].hash
+    )}\n`
   );
   console.log(`-----------------------------------`);
 }

@@ -25,8 +25,9 @@ class Block {
   }
 
   static mine_block(last_block, data) {
-    const { timestamp, last_hash, hash } = hashMiner(last_block, data);
-    const { difficulty, nonce } = hashMiner(last_block, data);
+    const newBlockData = hashMiner(last_block, data);
+    const { timestamp, last_hash, hash } = newBlockData;
+    const { difficulty, nonce } = newBlockData;
 
     return new Block(timestamp, last_hash, hash, data, difficulty, nonce);
   }

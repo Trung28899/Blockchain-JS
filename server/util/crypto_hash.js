@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { Block } from "../models/block.js";
+import { hex_to_binary } from "./hex_to_binary.js";
 
 /*
   Return a sha-256 hash of the given arguments
@@ -62,10 +63,12 @@ function hashMiner(last_block, data) {
     // Change difficulty when mining if needed
     difficulty = Block.adjust_difficulty(last_block, timestamp);
     hash = crypto_hash(timestamp, last_hash, data, difficulty, nonce);
+    // Complicate the algorithm so that the average time to mine is close to MINE_RATE
+    const binaryHash = hex_to_binary(hash);
 
     /// Mechanism to end the loop
     zeroString = "0".repeat(difficulty);
-    levelOfDifficulty = hash.substring(0, difficulty);
+    levelOfDifficulty = binaryHash.substring(0, difficulty);
   }
 
   return {

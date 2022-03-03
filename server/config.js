@@ -3,7 +3,7 @@ const NANOSECONDS = 1;
 // const MICROSECONDS = 1;
 const MILLISECONDS = 1;
 const SECONDS = 1000 * MILLISECONDS;
-const MINE_RATE = 4 * SECONDS;
+const MINE_RATE = 2 * SECONDS;
 
 export { MILLISECONDS };
 export { SECONDS, MINE_RATE };

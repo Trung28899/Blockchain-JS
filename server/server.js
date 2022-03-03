@@ -12,7 +12,6 @@ import { Block } from "./models/block.js";
 import { Blockchain } from "./models/blockchain.js";
 
 dotenv.config();
-
 const app = express();
 
 app.use(
