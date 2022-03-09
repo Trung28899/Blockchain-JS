@@ -88,7 +88,7 @@
 
 ##
 
-    3. 5th Commit: Collaboration (Chain Replacement)
+    4. 5th Commit: Collaboration (Chain Replacement)
 
         - SECTION 5: Collaboration
 
