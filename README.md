@@ -87,3 +87,25 @@
 `$ node scripts/average_block_rate.js`
 
 ##
+
+    3. 5th Commit: Collaboration (Chain Replacement)
+
+        - SECTION 5: Collaboration
+
+        - Implementing methods to validate blocks, blockchain and replace the whole chain:
+
+            +, See ./models/block.js > is_valid_block()
+
+            +, See ./models/blockchain.js > is_valid_chain()
+
+        - Testing:
+
+            +, See ./tests/blockchain/block.test.js
+
+            +, See ./tests/blockchain/blockchain.test.js
+
+        - Commands:
+
+`$ npm run test`
+`$ node models/blockchain.js`
+`$ node models/block.js`

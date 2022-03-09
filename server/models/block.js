@@ -1,5 +1,7 @@
 import { hashMiner } from "../util/crypto_hash.js";
+import { crypto_hash } from "../util/crypto_hash.js";
 import { MINE_RATE } from "../config.js";
+import { hex_to_binary } from "../util/hex_to_binary.js";
 
 const GENESIS_DATA = {
   timestamp: 1,
@@ -58,11 +60,54 @@ class Block {
 
     return 1;
   }
+
+  /*
+    Validate a block by enforcing the following rules: 
+      - The block must have the proper last_hash reference
+      - The block must meet the proof of work requirement
+      - The difficulty must only adjust by 1
+      - The block hash must be a valid combination of the block fields
+  */
+  static is_valid_block(last_block, block) {
+    const difficulty = block.difficulty;
+    const reconstructed_hash = crypto_hash(
+      block.timestamp,
+      block.last_hash,
+      block.data,
+      block.difficulty,
+      block.nonce
+    );
+
+    if (last_block.hash !== block.last_hash)
+      throw "The block last_hash must be correct";
+
+    if (
+      hex_to_binary(block.hash).substring(0, difficulty) !==
+      "0".repeat(difficulty)
+    ) {
+      throw "The proof of work requirement was not met";
+    }
+
+    if (Math.abs(last_block.difficulty - block.difficulty) > 1)
+      throw "The block difficulty must only adjust by 1";
+
+    if (reconstructed_hash !== block.hash)
+      throw "The block hash must be correct !";
+  }
 }
 
-// const genesis_block = Block.genesis();
-// const newBlock = Block.mine_block(genesis_block, ["Array"]);
-// const newBlock2 = Block.mine_block(newBlock, ["Array2"]);
-// console.log(newBlock2);
+// let genesis_block = Block.genesis();
+// let bad_block = Block.mine_block(genesis_block, "foo");
+
+// bad_block.last_hash = "evil_data";
+// genesis_block.difficulty = 7;
+// bad_block.nonce = 1;
+
+// try {
+//   Block.is_valid_block(genesis_block, bad_block);
+//   console.log("No Error, Blocks validated");
+// } catch (error) {
+//   console.log(error);
+// }
 
 export { Block, GENESIS_DATA };

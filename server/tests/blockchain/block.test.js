@@ -1,5 +1,6 @@
 import { Block, GENESIS_DATA } from "../../models/block.js";
 import { MINE_RATE } from "../../config.js";
+import { hex_to_binary } from "../../util/hex_to_binary.js";
 
 const sleepFunction = (timeSet) => {
   return new Promise((resolve) => setTimeout(resolve, timeSet));
@@ -21,7 +22,7 @@ test("Testing Block Mining", () => {
   expect(block.last_hash).toBe(last_bock.hash);
 
   // Test to see if the hash is valid Proof Of Work
-  expect(block.hash.substring(0, block.difficulty)).toBe(
+  expect(hex_to_binary(block.hash).substring(0, block.difficulty)).toBe(
     "0".repeat(block.difficulty)
   );
 });
@@ -81,4 +82,75 @@ test("Test Mined Block Difficulty Limit at 0", async () => {
 
   const mined_block = Block.mine_block(last_block, "bar");
   expect(mined_block.difficulty).toBe(1);
+});
+
+/*
+
+Test to see if a block is valid
+if there is no exceptions raised from the is_valid_block
+method > the test will pass
+otherwise, there will be an error
+
+*/
+test("Testing to validate blocks", () => {
+  const last_block = Block.genesis();
+  const block = Block.mine_block(last_block, "test_data");
+
+  Block.is_valid_block(last_block, block);
+});
+
+test("Validate Blocks: test last_hash", () => {
+  const last_block = Block.genesis();
+  const block = Block.mine_block(last_block, "test_data");
+  block.last_hash = "evil_last_hash";
+
+  try {
+    Block.is_valid_block(last_block, block);
+    // Will fail test if the block is still valid
+    expect(1).toBe(2);
+  } catch (error) {
+    expect(error).toBe("The block last_hash must be correct");
+  }
+});
+
+test("Validate Blocks: test proof of work requirements", () => {
+  const last_block = Block.genesis();
+  const block = Block.mine_block(last_block, "test_data");
+  block.hash = "fff4214321";
+
+  try {
+    Block.is_valid_block(last_block, block);
+    // Will fail test if the block is still valid
+    expect(1).toBe(2);
+  } catch (error) {
+    expect(error).toBe("The proof of work requirement was not met");
+  }
+});
+
+test("Validate Blocks: test difficulty differences", () => {
+  const last_block = Block.genesis();
+  const block = Block.mine_block(last_block, "test_data");
+  last_block.difficulty = 7;
+
+  try {
+    Block.is_valid_block(last_block, block);
+    // Will fail test if the block is still valid
+    expect(1).toBe(2);
+  } catch (error) {
+    expect(error).toBe("The block difficulty must only adjust by 1");
+  }
+});
+
+test("Validate Blocks: test difficulty differences", () => {
+  const last_block = Block.genesis();
+  const block = Block.mine_block(last_block, "test_data");
+  block.hash = "00000000000000000000000000abcdef13";
+
+  try {
+    Block.is_valid_block(last_block, block);
+    // Will fail test if the block is still valid
+    expect(1).toBe(2);
+  } catch (error) {
+    expect(error).toBe("The block hash must be correct !");
+  }
 });
