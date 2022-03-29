@@ -19,93 +19,122 @@
 
 ## COMMIT HISTORY
 
-    1. 2nd Commit: Start A Blockchain Application
+1. 2nd Commit: Start A Blockchain Application
 
-        - Start A Blockchain Application:
-            +, See ./server/models/block.js
-            +, ./server/models/blockchain.js
-            +, ./util/crypto_hash.js
+   - Start A Blockchain Application:
+     +, See ./server/models/block.js
+     +, ./server/models/blockchain.js
+     +, ./util/crypto_hash.js
 
-        - Section 1 - Section 3 Udemy course
-
-##
-
-    2. 3rd Commit: Unit Testing With Jest - Section 4: Test the Application
-
-        - Set up commands:
-
-            +, `$ cd server`
-
-            +, `$ npm install --save-dev jest`
-
-            +, See script in packages.json for test
-
-        - If cannot import anything into .test.js file, see:
-            +, packages.json > look for "dependencies" > must have all the babel dependencies and jest
-            +, See .bablerc file  > must be configured exactly like it
-
-        - All methods for expect():
-            +, https://jestjs.io/docs/expect
-
-        - Unit Testing:
-
-                +, Run: `$ npm run test`
-
-                +, See folder: ./server/tests/
-
-                +, All the files with extension: .test.js will automatically
-                    be run for testing
+   - Section 1 - Section 3 Udemy course
 
 ##
 
-    3. 4th Commit: Proof Of Work
+2.  3rd Commit: Unit Testing With Jest - Section 4: Test the Application
 
-        - SECTION 5: Proof Of Work
+    - Set up commands:
 
-        - Implementing Proof Of Work System:
+      +, `$ cd server`
 
-            +, See ./models/block.js > mine_block()
+      +, `$ npm install --save-dev jest`
 
-            +, See ./util/crypto_hash.js > hashMiner()
+      +, See script in packages.json for test
 
-            +, See ./scripts/average_block_rate.js > see script on testing the system
+    - If cannot import anything into .test.js file, see:
+      +, packages.json > look for "dependencies" > must have all the babel dependencies and jest
+      +, See .bablerc file > must be configured exactly like it
 
-        => This is how to implement proof of work to mine block
+    - All methods for expect():
+      +, https://jestjs.io/docs/expect
 
-        - Testing:
+    - Unit Testing:
 
-            +, See ./tests/blockchain/block.test.js
+      +, Run: `$ npm run test`
 
-        - Commands:
+      +, See folder: ./server/tests/
 
-            +, For testing:
-
-`$ npm run test`
-
-            +, For running scripts:
-
-`$ node scripts/average_block_rate.js`
+      +, All the files with extension: .test.js will automatically
+      be run for testing
 
 ##
 
-    4. 5th Commit: Collaboration (Chain Replacement)
+3. 4th Commit: Proof Of Work
 
-        - SECTION 5: Collaboration
+   - SECTION 5: Proof Of Work
 
-        - Implementing methods to validate blocks, blockchain and replace the whole chain:
+   - Implementing Proof Of Work System:
 
-            +, See ./models/block.js > is_valid_block()
+     +, See ./models/block.js > mine_block()
 
-            +, See ./models/blockchain.js > is_valid_chain()
+     +, See ./util/crypto_hash.js > hashMiner()
 
-        - Testing:
+     +, See ./scripts/average_block_rate.js > see script on testing the system
 
-            +, See ./tests/blockchain/block.test.js
+   => This is how to implement proof of work to mine block
 
-            +, See ./tests/blockchain/blockchain.test.js
+   - Testing:
 
-        - Commands:
+     +, See ./tests/blockchain/block.test.js
 
-`$ npm run test`
-`$ node models/blockchain.js`
-`$ node models/block.js`
+   - Commands:
+
+     +, For testing:
+
+   `$ npm run test`
+
+   +, For running scripts:
+
+   `$ node scripts/average_block_rate.js`
+
+##
+
+4. 5th Commit: Collaboration (Chain Replacement)
+
+   - SECTION 6: Collaboration
+
+   - Implementing methods to validate blocks, blockchain and replace the whole chain:
+
+     +, See ./models/block.js > is_valid_block()
+
+     +, See ./models/blockchain.js > is_valid_chain()
+
+   - Testing:
+
+     +, See ./tests/blockchain/block.test.js
+
+     +, See ./tests/blockchain/blockchain.test.js
+
+   - Commands:
+
+   `$ npm run test`
+   `$ node models/blockchain.js`
+   `$ node models/block.js`
+
+##
+
+5.  6th Commit: Setting up PubNub for NodeJS
+
+    - Installation:
+
+            +, version: 4.27.2
+
+            +, Installation link: https://www.npmjs.com/package/pubnub/v/4.27.2
+
+            +, Note: this version won't require uuid, later version will require uuid
+
+      - Getting Started Documentation:
+
+        +, https://www.pubnub.com/docs/sdks/javascript/nodejs#putting-it-all-together
+
+        +, click on "show all ... lines of code"
+
+      - Code base instruction:
+
+        +, visit ./server/pubsub.js
+
+        +, This code show how to setup, publish and subscribe to a channel
+
+        +, cd to server and run command: `$ node pubsub.js`
+
+        +, Code is equivalent to original repo 20th Commit:
+        https://github.com/Trung28899/BlockChain-Course-1
