@@ -12,11 +12,13 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --coverage",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "peer": "export PEER=true && nodemon server.js"
   },
   "author": "Trung Trinh",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.26.1",
     "babel-core": "^6.26.3",
     "babel-jest": "^27.5.1",
     "babel-preset-env": "^1.7.0",

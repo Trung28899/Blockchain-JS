@@ -1,34 +1,40 @@
 import PubNub from "pubnub";
+import { Block } from "./models/block.js";
 
-const TEST_CHANNEL = "TEST_CHANNEL";
-const message = {
-  title: "greeting",
-  description: "hello world!",
+const CHANNELS = {
+  TEST: "TEST",
+  BLOCK: "BLOCK",
 };
 
 class Listener {
-  constructor() {
-    this.status = function (statusEvent) {
-      // console.log(statusEvent);
-    };
+  constructor(blockchain) {
+    this.blockchain = blockchain;
+  }
 
-    // function that tells peers what to do after receiving a message on a channel
-    this.message = function (messageEvent) {
-      console.log("Message title is: " + messageEvent.message.title);
-      console.log(
-        "Message Description is: " + messageEvent.message.description
-      );
-    };
+  // function that tells peers what to do after receiving a message on a channel
+  message(messageEvent) {
+    console.log(`\n -- Channel: ${messageEvent.channel}`);
+    const newBlock = messageEvent.message;
 
-    this.presence = function (presenceEvent) {
-      // handle presence
-      console.log(presenceEvent);
-    };
+    // Getting a copy of an array without referencing its address
+    const chainLength = this.blockchain.chain.length;
+    const potential_chain = this.blockchain.chain.slice(0, chainLength);
+    potential_chain.push(newBlock);
+
+    try {
+      this.blockchain.replace_chain(potential_chain);
+      console.log(" -- Successfully replaced the local chain");
+      console.log("block data: ");
+      console.log(newBlock);
+    } catch (error) {
+      console.log(" -- Did not replace chain:");
+      console.log(error);
+    }
   }
 }
 
 class PubSub {
-  constructor() {
+  constructor(blockchain) {
     this.pubnub = new PubNub({
       publishKey: "pub-c-e25510fd-7eaa-4562-b2b7-d959147ee092",
       subscribeKey: "sub-c-22cd16f2-ad4d-11ec-b6fc-9aa0759238d3",
@@ -36,15 +42,15 @@ class PubSub {
 
     /*
         All the instance of this class, when initiated, 
-        will subscribe to the TEST_CHANNEL
+        will subscribe to the all the channels
     */
     this.pubnub.subscribe({
-      channels: [TEST_CHANNEL],
+      channels: [...Object.values(CHANNELS)],
     });
 
     // Listener tell a peer what to do
     // when a new message is publised on the subscribed channel
-    this.pubnub.addListener(new Listener());
+    this.pubnub.addListener(new Listener(blockchain));
   }
 
   // Publish the message object to the channel
@@ -56,17 +62,25 @@ class PubSub {
 
     return result;
   }
+
+  broadcast_block(block) {
+    this.publish(CHANNELS["BLOCK"], block);
+  }
 }
 
-const pubsub = new PubSub();
-
 /*
-    Need to set this to make sure the output shown
+    Need to setTimeout to make sure the output shown
     because if a peer subscribe and publish at the same time
     the message in Listener.message() might not be shown
 */
-setTimeout(() => {
-  pubsub.publish(TEST_CHANNEL, message);
-}, 500);
+
+// const message = {
+//   title: "greeting",
+//   description: "hello world!",
+// };
+// const pubsub = new PubSub();
+// setTimeout(() => {
+//   pubsub.publish(CHANNELS["TEST"], message);
+// }, 500);
 
 export { PubSub };

@@ -114,13 +114,15 @@
 
 5.  6th Commit: Setting up PubNub for NodeJS
 
+    - SECTION 7: Blockchain API
+
     - Installation:
 
-            +, version: 4.27.2
+      +, version: 4.27.2
 
-            +, Installation link: https://www.npmjs.com/package/pubnub/v/4.27.2
+      +, Installation link: https://www.npmjs.com/package/pubnub/v/4.27.2
 
-            +, Note: this version won't require uuid, later version will require uuid
+      +, Note: this version won't require uuid, later version will require uuid
 
       - Getting Started Documentation:
 
@@ -138,3 +140,54 @@
 
         +, Code is equivalent to original repo 20th Commit:
         https://github.com/Trung28899/BlockChain-Course-1
+
+##
+
+6.  7th Commit: Complete the blockchain API
+
+a. SECTION 7: Blockchain API
+
+b. Content:
+
+- 21st - 24th Commit in this repo:
+  https://github.com/Trung28899/BlockChain-Course-1
+
+c. Code base instruction:
+
+- Set up Peer instances:
+
+  +, Visist server.js to see how this is set up
+  +, Every peer is setup on a differnt port in localhost to
+  stimulate differnt peer in a network
+  +, COMMANDS: cd to server and
+  `$ npm start` > start the primary node
+  `$ npm run peer` > start a new peer
+
+- When a block is added: broadcast the block to all the peer and add the
+  new block locally
+
+  +, See blockchainControllers.js in mineBlock() to see how to broadcast new block
+  +, See pubsub.js in message(messageEvent) in the Listener class to
+  see how a new block is added locally
+
+- Synchronizing a peer on start up:
+
+  +, When a peer is started, it needs to have the lastest instance
+  of the blockchain
+  +, see server.js under if (process.env.PEER === "true") to see how
+  this is setup
+
+- Notes:
+
+  +, Need to use postman to hit the route to test the peer network
+
+  +, At start up, if the blockchain only has the genesis block, peer
+  console will show error: "-- Error Synchronizing: Cannot replace. The incoming chain must be longer" > this is normal because the peer doesn't need update
+  its local blockchain. There was no updates on the network
+
+  +, When mine a new block, the primary node will have an error message:
+  -- Did not replace chain:
+  Cannot replace. The incoming is invalid
+
+  => this is normal because the blockchain of the primary node is already
+  up to date > no need to replace
